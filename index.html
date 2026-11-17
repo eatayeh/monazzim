@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ff5a4e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Daily">
+  <title>Daily Checklist</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-row">
+      <div>
+        <p class="date" id="date"></p>
+        <h1 id="title">Today</h1>
+      </div>
+      <div class="ring" id="ring" aria-label="Today's progress">
+        <svg viewBox="0 0 44 44" aria-hidden="true">
+          <circle cx="22" cy="22" r="19" class="ring-bg"/>
+          <circle cx="22" cy="22" r="19" class="ring-fg" id="ring-fg"/>
+        </svg>
+        <span id="ring-pct">0%</span>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-view="today" aria-selected="true">Today</button>
+      <button role="tab" data-view="history" aria-selected="false">History</button>
+      <button role="tab" data-view="settings" aria-selected="false">Settings</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-today" class="view">
+      <div id="sections"></div>
+      <div class="edit-bar">
+        <button class="ghost" id="toggle-edit">Edit list</button>
+        <button class="ghost" id="add-section" hidden>+ New routine</button>
+      </div>
+    </section>
+
+    <section id="view-history" class="view" hidden>
+      <div class="stats" id="stats"></div>
+      <h2 class="h2">Last 12 weeks</h2>
+      <div class="heat" id="heat"></div>
+      <p class="hint">Darker = more of the day's list done. Tap a day to see or fix it.</p>
+      <div id="day-detail"></div>
+    </section>
+
+    <section id="view-settings" class="view" hidden>
+      <h2 class="h2">Backup</h2>
+      <p class="hint">Your data is saved on this phone only. Export a backup now and then.</p>
+      <div class="btn-row">
+        <button class="primary" id="export">Copy backup</button>
+        <button class="ghost" id="import">Restore backup</button>
+      </div>
+      <textarea id="backup-box" rows="6" placeholder="Paste a backup here, then tap Restore backup" hidden></textarea>
+      <h2 class="h2">Install on your phone</h2>
+      <p class="hint"><b>iPhone:</b> open in Safari → Share → Add to Home Screen.<br><b>Android:</b> Chrome menu → Install app.</p>
+      <h2 class="h2">Danger zone</h2>
+      <button class="danger" id="reset">Erase everything</button>
+    </section>
+  </main>
+
+  <dialog id="dlg">
+    <form method="dialog" id="dlg-form">
+      <h2 id="dlg-title">Edit</h2>
+      <div id="dlg-fields"></div>
+      <div class="btn-row end">
+        <button value="cancel" class="ghost" formnovalidate>Cancel</button>
+        <button value="ok" class="primary" id="dlg-ok">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
